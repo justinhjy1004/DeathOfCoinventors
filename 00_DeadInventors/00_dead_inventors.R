@@ -34,6 +34,25 @@ df |>
   ) |> 
   filter(inactivity <= 5) -> df
 
+#==============================================================
+# Remove repeated names
+#==============================================================
+
+df |>
+  group_by(first_name, last_name) |>
+  summarize(count = n()) |>
+  filter(count == 1) |>
+  mutate( 
+    full_name = paste(first_name, last_name, sep = " ") 
+    ) -> uniquely_identifiable
+
+df |>
+  mutate(
+    full_name = paste(first_name, last_name, sep = " ")
+  ) |> 
+  filter(full_name %in% uniquely_identifiable$full_name) -> df
+  
+
 # write data
 write.csv(df, "../Data/processed_dead_inventors.csv", row.names = F)
 
