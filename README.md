@@ -31,7 +31,28 @@ We first wish to get all the coinventors of the dead inventors.
 
 This would give us all the patents of the coinventors of the dead. And from there, we
 1. Subset the list patents of coinventors
-2. Remove the dead inventors
-3. Remove the coinventors
+2. And we are done!
 
-which gives us the co-coinventors!
+which gives us the co-coinventors! Note that we did not remove the dead inventors or the coinventor list for co-coinventors since we are interested in how many coinventors the co-coinventors have, which includes the dead inventors and their "current" coinventors!
+
+### Coinventor Information
+
+For each coinventor, we are also interested for a given patent
+1. How many (co)-coinventors are there?
+2. For a given (co)-coinventor, when was the **first** coinvention?
+
+To achieve this, and due to the sheer amount of calculation necessary, I mulithreaded this operation as seen in
+
+1. *01_split_coinventors.R* - split the coinventor files
+2. *02_eval_coinv_relation.R* - get number of inventors of the given patent, and patent relevant information
+3. *03_putting_things_together.R*
+
+------------------------------
+
+## Performance
+
+Having all the necessary information gathered, for each coinventor and their respective patents, we want to know
+1. For each patent, when was it filed?
+2. For each patent, how many citations did it get?
+3. For each co-coinventor, when is the **first** collaboration?
+4. For each dead inventor, when is the **last** collaboration?
